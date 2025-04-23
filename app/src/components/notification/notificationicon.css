@@ -1,0 +1,77 @@
+.notification-icon-container {
+    position: relative;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .notification-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    font-size: 10px;
+    min-width: 18px;
+    min-height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .notifications-popover {
+    --width: 300px;
+    --max-width: 90vw;
+    --max-height: 400px;
+  }
+  
+  .notifications-header {
+    padding: 10px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--ion-color-light);
+  }
+  
+  .notifications-header h4 {
+    margin: 0;
+  }
+  
+  .notifications-list {
+    max-height: 350px;
+    overflow-y: auto;
+  }
+  
+  .notification-item {
+    width: 100%;
+    padding: 5px 0;
+  }
+  
+  .notification-item h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .notification-item p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  
+  .notification-item small {
+    color: var(--ion-color-medium);
+    font-size: 12px;
+  }
+  
+  .notification-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+  }
+  
+  .notification-unread {
+    --background: rgba(var(--ion-color-primary-rgb), 0.1);
+    font-weight: bold;
+  }
+  
+  .notification-read {
+    --background: transparent;
+  }

@@ -1,0 +1,9 @@
+
+{
+  "id": "com.len.len",
+  "name": "app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}

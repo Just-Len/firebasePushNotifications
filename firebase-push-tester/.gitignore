@@ -1,0 +1,5 @@
+node_modules
+dist
+firebase-debug.log
+firebase-debug.log.lck
+firebase-push-tester/serviceAccountKey.json

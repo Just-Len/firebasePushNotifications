@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Push Notification Tester</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Firebase Push Notification Tester</h1>
+            <p>Envía notificaciones push de prueba a dispositivos registrados en Firebase</p>
+        </header>
+
+        <!-- Firebase Status Banner -->
+        <div id="firebaseStatusBanner" class="status-banner">
+            <div class="loading-spinner"></div> 
+            <span>Verificando estado de Firebase...</span>
+        </div>
+
+        <!-- Firebase Configuration Form -->
+        <div id="firebaseConfigSection" class="config-section" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Configuración de Firebase</h2>
+                    <p>Para empezar, necesitas configurar las credenciales de Firebase Cloud Messaging</p>
+                </div>
+                <div class="card-body">
+                    <form id="firebaseConfigForm">
+                        <div class="form-group">
+                            <label for="serviceAccount">Credenciales de Firebase (serviceAccountKey.json)</label>
+                            <textarea id="serviceAccount" name="serviceAccount" required 
+                                placeholder="Pega aquí el contenido completo del archivo serviceAccountKey.json"></textarea>
+                            <div class="form-help">
+                                <p>Para obtener este archivo:</p>
+                                <ol>
+                                    <li>Ve a la <a href="https://console.firebase.google.com/" target="_blank">consola de Firebase</a></li>
+                                    <li>Selecciona tu proyecto</li>
+                                    <li>Ve a Configuración (ícono de engranaje) > Cuentas de servicio</li>
+                                    <li>Haz clic en "Generar nueva clave privada"</li>
+                                    <li>Abre el archivo JSON descargado y copia todo el contenido</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn">Configurar Firebase</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="mainContent" class="tabs" style="display: none;">
+            <div class="tab-header">
+                <div class="tab-btn active" data-tab="single">
+                    <i class="fas fa-mobile-alt"></i> Dispositivo Único
+                </div>
+                <div class="tab-btn" data-tab="topic">
+                    <i class="fas fa-users"></i> Tema (Topic)
+                </div>
+                <div class="tab-btn" data-tab="multiple">
+                    <i class="fas fa-layer-group"></i> Múltiples Dispositivos
+                </div>
+            </div>
+            <div class="tab-content">
+                <!-- Formulario para un solo token -->
+                <div class="tab-pane active" id="single">
+                    <form id="singleDeviceForm">
+                        <div class="form-group">
+                            <label for="token">Token del Dispositivo</label>
+                            <textarea id="token" name="token" required placeholder="Ingresa el token FCM del dispositivo"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="title">Título</label>
+                            <input type="text" id="title" name="title" required placeholder="Título de la notificación">
+                        </div>
+                        <div class="form-group">
+                            <label for="body">Mensaje</label>
+                            <textarea id="body" name="body" required placeholder="Cuerpo del mensaje"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="data">Datos adicionales (JSON - opcional)</label>
+                            <textarea id="data" name="data" placeholder='{"key1": "value1", "key2": "value2"}'></textarea>
+                        </div>
+                        <button type="submit" class="btn">Enviar Notificación</button>
+                    </form>
+                </div>
+
+                <!-- Formulario para tema (topic) -->
+                <div class="tab-pane" id="topic">
+                    <form id="topicForm">
+                        <div class="form-group">
+                            <label for="topic">Nombre del Tema</label>
+                            <input type="text" id="topic" name="topic" required placeholder="Nombre del tema (ej: noticias)">
+                        </div>
+                        <div class="form-group">
+                            <label for="topicTitle">Título</label>
+                            <input type="text" id="topicTitle" name="title" required placeholder="Título de la notificación">
+                        </div>
+                        <div class="form-group">
+                            <label for="topicBody">Mensaje</label>
+                            <textarea id="topicBody" name="body" required placeholder="Cuerpo del mensaje"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="topicData">Datos adicionales (JSON - opcional)</label>
+                            <textarea id="topicData" name="data" placeholder='{"key1": "value1", "key2": "value2"}'></textarea>
+                        </div>
+                        <button type="submit" class="btn">Enviar Notificación al Tema</button>
+                    </form>
+                </div>
+
+                <!-- Formulario para múltiples tokens -->
+                <div class="tab-pane" id="multiple">
+                    <form id="multipleDevicesForm">
+                        <div class="form-group">
+                            <label for="tokens">Tokens de Dispositivos</label>
+                            <textarea id="tokens" name="tokens" required placeholder="Ingresa los tokens FCM, uno por línea"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="multiTitle">Título</label>
+                            <input type="text" id="multiTitle" name="title" required placeholder="Título de la notificación">
+                        </div>
+                        <div class="form-group">
+                            <label for="multiBody">Mensaje</label>
+                            <textarea id="multiBody" name="body" required placeholder="Cuerpo del mensaje"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="multiData">Datos adicionales (JSON - opcional)</label>
+                            <textarea id="multiData" name="data" placeholder='{"key1": "value1", "key2": "value2"}'></textarea>
+                        </div>
+                        <button type="submit" class="btn">Enviar Notificaciones</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="response-container">
+            <h3>Respuesta</h3>
+            <pre id="response"></pre>
+        </div>
+
+        <div class="history-container">
+            <h3>Historial de Envíos</h3>
+            <div id="history"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Firebase Push Notification Tester © 2025</p>
+    </footer>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
